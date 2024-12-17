@@ -1,0 +1,16 @@
+{
+  "name": "Debian with GCC",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "extensions": [
+    "ms-vscode.cpptools",       // C/C++ extension for debugging and intellisense
+    "ms-azuretools.vscode-docker" // Docker extension (optional)
+  ],
+  "postCreateCommand": "echo 'Container is ready!'",
+  "remoteUser": "root" // Run as root user (default)
+}
