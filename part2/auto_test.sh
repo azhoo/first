@@ -36,6 +36,7 @@ for c_file in "$CODES_DIR"/*.c; do
         if diff -q temp_output.txt "$ref_file";  then
             ((passed++))
         fi
+            cat temp_output.txt
             ((total++))
     done
     
