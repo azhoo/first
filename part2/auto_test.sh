@@ -24,10 +24,10 @@ for c_file in "$CODES_DIR"/*.c; do
     for test_file in "$TESTS_DIR/$base_name"_input*.txt; do
        # Step 1: Create the reference file path
         test_base_name=$(basename "$test_file" .txt)
-        test_base_name=${test_base_name/_input/_output.txt}
+        test_base_name=${test_base_name/_input/_output}
 
     
-        ref_file="${REFS_DIR}/${test_base_name}"
+        ref_file="${REFS_DIR}/${test_base_name}.txt"
 
         # Step 2: Run the compiled program with input and save output
         "$CODES_DIR/$base_name.out" < "$test_file" > temp_output.txt
