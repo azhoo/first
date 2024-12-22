@@ -4,6 +4,6 @@ int main() {
     int a, b,mul;
     scanf("%d %d", &a, &b);
     mul=a*b;
-    printf("%d\n", mul);
+    printf("%d", mul);
     return 0;
 }
