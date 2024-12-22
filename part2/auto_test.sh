@@ -31,10 +31,10 @@ for c_file in "$CODES_DIR"/*.c; do
         "$CODES_DIR/$base_name.out" < "$test_file" > temp_output.txt
 
 
-        if diff -q temp_output.txt "$ref_file"  then
+        if diff -q temp_output.txt "$ref_file";  then
             ((passed++))
         fi
-        ((total++))
+            ((total++))
     done
     
     percentage=$((100 * passed / total))
