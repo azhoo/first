@@ -23,7 +23,7 @@ for c_file in "$CODES_DIR"/*.c; do
     passed=0
     for test_file in "$TESTS_DIR/$base_name"_input*.txt; do
        # Step 1: Create the reference file path
-        test_base_name=$(basename "$test_file")
+        test_base_name=$(basename "$test_file" _input*.txt)
        
         ref_file="${REFS_DIR}/${test_base_name}_output.txt"
 
