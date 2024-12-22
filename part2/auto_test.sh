@@ -23,8 +23,9 @@ for c_file in "$CODES_DIR"/*.c; do
     passed=0
     for test_file in "$TESTS_DIR/$base_name"_input*.txt; do
        # Step 1: Create the reference file path
-        test_base_name=$(basename $(basename "$test_file" _input*.txt) _input*.txt)
-       
+        test_base_name=$(basename "$test_file" .txt)
+        test_base_name=${test_base_name/_input/}
+    
         ref_file="${REFS_DIR}/${test_base_name}_output.txt"
 
         # Step 2: Run the compiled program with input and save output
