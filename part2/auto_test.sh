@@ -26,7 +26,6 @@ for c_file in "$CODES_DIR"/*.c; do
         test_base_name=$(basename "$test_file" .txt)
         test_base_name=${test_base_name/_input*/}
 
-        adjkaldfijioweiw
     
         ref_file="${REFS_DIR}/${test_base_name}_output.txt"
 
