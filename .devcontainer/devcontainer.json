@@ -1,5 +1,5 @@
 {
-  "name": "My Ubuntu",
+  "name": "General Purpose Ubuntu",
   "build": {
     "dockerfile": "Dockerfile"
   },
