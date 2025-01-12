@@ -1,17 +1,18 @@
 {
-  "name": "Debian with GCC",
+  "name": "My Ubuntu",
   "build": {
-    "dockerfile": "Dockerfile",
-    "context": "."
+    "dockerfile": "Dockerfile"
   },
   "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.formatOnSave": true
   },
   "extensions": [
-    
-    "ms-vscode.cpptools",       // C/C++ extension for debugging and intellisense
-    "ms-azuretools.vscode-docker" // Docker extension (optional)
+    "ms-vscode.cpptools",
+    "ms-python.python",
+    "ms-azuretools.vscode-docker",
+    "esbenp.prettier-vscode"
   ],
-  "postCreateCommand": "echo 'Container is ready!'",
-  "remoteUser": "root" // Run as root user (default)
+  "postCreateCommand": "sudo apt-get update && sudo apt-get upgrade -y",
+  "remoteUser": "root"
 }

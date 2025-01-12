@@ -1,15 +1,27 @@
-# Use a lightweight Debian image as the base
-FROM debian:bullseye-slim
+# Use Ubuntu as the base image
+FROM ubuntu:22.04
 
-# Install Bash and GCC
+# Set environment variables to avoid prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install basic tools and utilities
 RUN apt-get update && apt-get install -y \
-    bash \
-    gcc \
-    make \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    build-essential \
+    curl \
+    git \
+    wget \
+    vim \
+    nano \
+    python3 \
+    python3-pip \
+    unzip \
+    zip \
+    sudo \
+    software-properties-common && \
+    apt-get clean
 
-# Set Bash as the default shell
-SHELL ["/bin/bash", "-c"]
+# Set default user to root
+USER root
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /workspace
