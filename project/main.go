@@ -47,11 +47,6 @@ func main() {
 
 	}
 
-
-
-	
-
-	
 	// Start the chosen scheduling algorithm
 	switch algoChoice {
 	case 1:
@@ -71,20 +66,16 @@ func main() {
 
 	// Start handling I/O
 	go u.HandleIO(scheduler)
-	
-	
+
 	// Start handling resources
 	go u.HandleRes(scheduler)
 
-	
-	
-	
 	// Wait for goroutines to finish
 
 	for i := 0; ; {
 
 		if i > 600 { // some time near 15 - 20 sec
-			fmt.Println("\nTimeout reached! Exiting.\n")
+			fmt.Print("\nTimeout reached! Exiting.\n")
 			return
 		} else {
 

@@ -27,14 +27,17 @@ func ShortestJobNext(s *Scheduler) {
 
 				if task.IOTime > 0 {
 					task.State = WaitingIO
+					fmt.Println("Task ", task.ID, "-----> IO queue")
 					s.IOQueue <- task
 				} else if task.Resources > 0 {
 					task.State = WaitingRes
-					fmt.Print("\n\n\nResQ_________________> ", task)
+					// fmt.Print("\n\n\nResQ_________________> ", task)
+					fmt.Println("Task ", task.ID, "-----> Resource queue")
 					s.ResQueue <- task
 				} else {
 
 					task.State = Running
+					fmt.Println("Task ", task.ID, "-----> running")
 					time.Sleep(time.Duration(task.BurstTime) * time.Millisecond)
 
 					s.Res += task.ResourcesAllocated // retrieving resources back
@@ -44,6 +47,8 @@ func ShortestJobNext(s *Scheduler) {
 					task.State = Completed
 
 					task.CompletionTime = time.Now()
+
+					fmt.Println("Task ", task.ID, "-----> completed")
 
 					s.mu.Lock()
 					s.Completed = append(s.Completed, task)

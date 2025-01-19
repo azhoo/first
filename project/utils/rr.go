@@ -11,30 +11,34 @@ func RoundRobin(s *Scheduler) {
 		for {
 			task := <-s.ReadyQueue
 
-			fmt.Print("\n.                                res = ", s.Res, "\n")
-			fmt.Print(task, "1\n")
+			// fmt.Print("\n.                                res = ", s.Res, "\n")
+			// fmt.Print(task, "1\n")
 
-			if task.IOTime > 0 {//if has io handle io first
-				
-				
+			if task.IOTime > 0 { //if has io handle io first
+
 				task.State = WaitingIO
+
+				fmt.Println("Task ", task.ID, "-----> IO queue")
+
 				s.IOQueue <- task
 
-				
-			} else if task.Resources > 0 {//if need resources handle them first
-				
-				
+			} else if task.Resources > 0 { //if need resources handle them first
+
 				task.State = WaitingRes
-				fmt.Print("\n\n\nResQ_________________> ", task)
+
+				fmt.Println("Task ", task.ID, "-----> Resource queue")
+				// fmt.Print("\n\n\nResQ_________________> ", task)
 				s.ResQueue <- task
 
-
-			} else if task.BurstTime > s.TimeSlice {//if longer than time slice
+			} else if task.BurstTime > s.TimeSlice { //if longer than time slice
 
 				// s.res += task.ResourcesAllocated
 				// task.ResourcesAllocated = 0
 
 				task.State = Running
+
+				fmt.Println("Task ", task.ID, "-----> running")
+
 				time.Sleep(time.Duration(s.TimeSlice) * time.Millisecond)
 				task.BurstTime -= s.TimeSlice
 
@@ -42,9 +46,9 @@ func RoundRobin(s *Scheduler) {
 
 				s.ReadyQueue <- task
 
-				fmt.Print(task, "2\n")
+				// fmt.Print(task, "2\n")
 
-			} else {  // if shorter than time slice
+			} else { // if shorter than time slice
 
 				task.State = Running
 				time.Sleep(time.Duration(task.BurstTime) * time.Millisecond)
@@ -57,7 +61,8 @@ func RoundRobin(s *Scheduler) {
 				s.Res += task.ResourcesAllocated // retrieving resources back
 				task.ResourcesAllocated = 0
 
-				fmt.Print(task, "3\n")
+				fmt.Println("Task ", task.ID, "-----> completed")
+				// fmt.Print(task, "3\n")
 
 				s.mu.Lock()
 				s.Completed = append(s.Completed, task)
