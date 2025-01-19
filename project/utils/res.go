@@ -35,8 +35,8 @@ func HandleRes(s *Scheduler) {
 			task := tasks[0]
 
 			fmt.Print("\n", task, "_________________res\n")
-			if task.Resources <= s.res {
-				s.res -= task.Resources
+			if task.Resources <= s.Res {
+				s.Res -= task.Resources
 				task.ResourcesAllocated = task.Resources
 				task.Resources = 0
 				fmt.Print("\n", task, "_____________________________Res\n")

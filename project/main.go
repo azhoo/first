@@ -21,10 +21,19 @@ func main() {
 		IOQueue:    make(chan *u.Task, 20),
 		ResQueue:   make(chan *u.Task, 20),
 		TimeSlice:  100,
+		Res:        20,
 	}
 
 	// Add tasks to the ReadyQueue
 	tasks := []*u.Task{
+		{ID: 2, BurstTime: 2000, IOTime: 500, Resources: 5, ResourcesAllocated: 0, Priority: 1, State: u.Ready, StartTime: time.Now()},
+		{ID: 3, BurstTime: 3000, IOTime: 200, Resources: 10, ResourcesAllocated: 0, Priority: 2, State: u.Ready, StartTime: time.Now()},
+		{ID: 4, BurstTime: 500, IOTime: 5000, Resources: 15, ResourcesAllocated: 0, Priority: 3, State: u.Ready, StartTime: time.Now()},
+		{ID: 5, BurstTime: 200, IOTime: 20000, Resources: 20, ResourcesAllocated: 0, Priority: 4, State: u.Ready, StartTime: time.Now()},
+		{ID: 6, BurstTime: 100, IOTime: 0, Resources: 9, ResourcesAllocated: 0, Priority: 5, State: u.Ready, StartTime: time.Now()},
+	}
+
+	tasks2 := []*u.Task{
 		{ID: 2, BurstTime: 2000, IOTime: 500, Resources: 5, ResourcesAllocated: 0, Priority: 1, State: u.Ready, StartTime: time.Now()},
 		{ID: 3, BurstTime: 3000, IOTime: 200, Resources: 10, ResourcesAllocated: 0, Priority: 2, State: u.Ready, StartTime: time.Now()},
 		{ID: 4, BurstTime: 500, IOTime: 5000, Resources: 15, ResourcesAllocated: 0, Priority: 3, State: u.Ready, StartTime: time.Now()},
@@ -91,6 +100,6 @@ func main() {
 	}
 
 	// After all tasks are completed and channels are closed
-	u.CalculateAndPrintMetrics(scheduler, scheduler.Completed)
+	u.CalculateAndPrintMetrics(scheduler, scheduler.Completed, tasks2)
 
 }

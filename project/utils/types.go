@@ -35,5 +35,5 @@ type Scheduler struct {
 	Completed  []*Task
 	TimeSlice  int
 	mu         sync.Mutex
-	res        int
+	Res        int
 }

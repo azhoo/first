@@ -11,7 +11,7 @@ func RoundRobin(s *Scheduler) {
 		for {
 			task := <-s.ReadyQueue
 
-			fmt.Print("\n.                                res = ", s.res, "\n")
+			fmt.Print("\n.                                res = ", s.Res, "\n")
 			fmt.Print(task, "1\n")
 
 			if task.IOTime > 0 {
@@ -37,10 +37,16 @@ func RoundRobin(s *Scheduler) {
 				fmt.Print(task, "2\n")
 
 			} else {
+
+				task.State = Running
+				time.Sleep(time.Duration(task.BurstTime) * time.Millisecond)
+
 				task.BurstTime = 0
 				task.State = Completed
 
-				s.res += task.ResourcesAllocated // retrieving resources back
+				task.CompletionTime = time.Now()
+
+				s.Res += task.ResourcesAllocated // retrieving resources back
 				task.ResourcesAllocated = 0
 
 				fmt.Print(task, "3\n")

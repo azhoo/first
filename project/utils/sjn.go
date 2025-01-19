@@ -37,11 +37,14 @@ func ShortestJobNext(s *Scheduler) {
 					task.State = Running
 					time.Sleep(time.Duration(task.BurstTime) * time.Millisecond)
 
-					s.res += task.ResourcesAllocated // retrieving resources back
+					s.Res += task.ResourcesAllocated // retrieving resources back
 					task.ResourcesAllocated = 0
 
 					task.BurstTime = 0
 					task.State = Completed
+
+					task.CompletionTime = time.Now()
+
 					s.mu.Lock()
 					s.Completed = append(s.Completed, task)
 					s.mu.Unlock()

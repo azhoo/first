@@ -12,7 +12,7 @@ func FCFS(s *Scheduler) {
 		if len(s.ReadyQueue) > 0 {
 			task := <-s.ReadyQueue
 
-			fmt.Print("\n.                                res = ", s.res, "\n")
+			fmt.Print("\n.                                res = ", s.Res, "\n")
 			fmt.Print(task, "1\n")
 
 			if task.IOTime > 0 {
@@ -27,11 +27,14 @@ func FCFS(s *Scheduler) {
 				task.State = Running
 				time.Sleep(time.Duration(task.BurstTime) * time.Millisecond)
 
-				s.res += task.ResourcesAllocated // retrieving resources back
+				s.Res += task.ResourcesAllocated // retrieving resources back
 				task.ResourcesAllocated = 0
 
 				task.BurstTime = 0
 				task.State = Completed
+
+				task.CompletionTime = time.Now()
+
 				s.mu.Lock()
 				s.Completed = append(s.Completed, task)
 				s.mu.Unlock()
