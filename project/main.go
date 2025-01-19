@@ -47,10 +47,11 @@ func main() {
 
 	}
 
-	// Close ReadyQueue after adding all tasks
 
-	// Add goroutines to WaitGroup
 
+	
+
+	
 	// Start the chosen scheduling algorithm
 	switch algoChoice {
 	case 1:
@@ -70,9 +71,14 @@ func main() {
 
 	// Start handling I/O
 	go u.HandleIO(scheduler)
+	
+	
 	// Start handling resources
 	go u.HandleRes(scheduler)
 
+	
+	
+	
 	// Wait for goroutines to finish
 
 	for i := 0; ; {

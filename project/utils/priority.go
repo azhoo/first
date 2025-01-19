@@ -25,13 +25,17 @@ func PriorityScheduling(s *Scheduler) {
 			// Process sorted tasks
 			for _, task := range tasks {
 
-				if task.IOTime > 0 {
+				if task.IOTime > 0 {//if has io handle io first
+
 					task.State = WaitingIO
 					s.IOQueue <- task
-				} else if task.Resources > 0 {
+
+				} else if task.Resources > 0 {//if need resources handle them first
+					
 					task.State = WaitingRes
 					fmt.Print("\n\n\nResQ_________________> ", task)
 					s.ResQueue <- task
+
 				} else {
 
 					task.State = Running

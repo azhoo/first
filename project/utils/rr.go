@@ -14,14 +14,22 @@ func RoundRobin(s *Scheduler) {
 			fmt.Print("\n.                                res = ", s.Res, "\n")
 			fmt.Print(task, "1\n")
 
-			if task.IOTime > 0 {
+			if task.IOTime > 0 {//if has io handle io first
+				
+				
 				task.State = WaitingIO
 				s.IOQueue <- task
-			} else if task.Resources > 0 {
+
+				
+			} else if task.Resources > 0 {//if need resources handle them first
+				
+				
 				task.State = WaitingRes
 				fmt.Print("\n\n\nResQ_________________> ", task)
 				s.ResQueue <- task
-			} else if task.BurstTime > s.TimeSlice {
+
+
+			} else if task.BurstTime > s.TimeSlice {//if longer than time slice
 
 				// s.res += task.ResourcesAllocated
 				// task.ResourcesAllocated = 0
@@ -36,7 +44,7 @@ func RoundRobin(s *Scheduler) {
 
 				fmt.Print(task, "2\n")
 
-			} else {
+			} else {  // if shorter than time slice
 
 				task.State = Running
 				time.Sleep(time.Duration(task.BurstTime) * time.Millisecond)
